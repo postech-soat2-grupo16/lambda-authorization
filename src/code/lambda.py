@@ -60,7 +60,7 @@ def token_validation(token):
         decoded = jwt.decode(token, key, algorithms="HS256")
         print("token decoded", decoded)
 
-        exp_claim = decode.get('exp') 
+        exp_claim = decoded.get('exp') 
         current_time = datetime.datetime.utcnow()
 
         return current_time < datetime.datetime.fromtimestamp(exp_claim)
