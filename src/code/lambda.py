@@ -30,7 +30,6 @@ def main(event, context):
                     }
                 })
             }
-}
     return response
 
 def get_secrets(secret_name):
