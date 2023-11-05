@@ -3,6 +3,7 @@ import os
 import jwt
 import boto3
 import datetime
+import sys
 
 def main(event, context):
     response = {
