@@ -11,7 +11,10 @@ def main(event, context):
             "Content-Type": "application/json"
         },
         "body": json.dumps({
-            "message": "Unauthorized: Missing or invalid authentication credentials."
+            "isAuthorized": False,
+            "context": {
+                "exampleKey": "exampleValue"
+            }
         })
     }
     if 'headers' in event:
