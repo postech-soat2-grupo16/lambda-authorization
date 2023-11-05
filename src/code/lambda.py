@@ -15,10 +15,9 @@ def main(event, context):
         })
     }
     if 'headers' in event:
-        request_body = event['body']
-        if 'token' in request_body:
-            cpf = request_body['token']
-            is_token_ok = token_validation(cpf)
+        token = event['headers'].get('x-token')
+        if token:
+            is_token_ok = token_validation(token)
             response = {
                 "statusCode": 200,
                 "headers": {
