@@ -16,7 +16,7 @@ def main(event, context):
     }
     if 'headers' in event:
         print('event:: ', event)
-        token = event['headers'].get('X-Token')
+        token = event['headers'].get('x-token')
         print('token: ', token)
         if token:
             is_token_ok = token_validation(token)
