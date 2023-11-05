@@ -8,36 +8,44 @@ import sys
 def main(event, context):
     response = {
         "isAuthorized": False,
-        "context": {
-            "customKey": "customValue"
-        },
-        "statusCode": 403,
+        "statusCode": 401,
         "headers": {
             "Custom-Header": "Header-Value"
         },
-        "usageIdentifierKey": "usage-key",
         "body": "Authorization failed"
     }
+
     if 'headers' in event:
         print('event:: ', event)
         token = event['headers'].get('x-token')
         print('token: ', token)
         if token:
             is_token_ok = token_validation(token)
-            print('is token ok: ', is_token_ok)
-            response = {
-                "isAuthorized": True,
-                "context": {
-                    "customKey": "customValue"
-                },
-                "statusCode": 200,
-                "headers": {
-                    "Custom-Header": "Header-Value"
-                },
-                "usageIdentifierKey": "usage-key",
-                "body": "Authorization successful"
-            }
+            if is_token_ok: 
+                print('is token ok: ', is_token_ok)
+                response = {
+                    "isAuthorized": True,
+                    "context": {
+                        "customKey": "customValue"
+                    },
+                    "statusCode": 200,
+                    "headers": {
+                        "Custom-Header": "Header-Value"
+                    },
+                    "usageIdentifierKey": "usage-key",
+                    "body": "Authorization successful"
+                }
+            else: 
+                response = {
+                    "isAuthorized": False,
+                    "statusCode": 403,
+                    "headers": {
+                        "Custom-Header": "Header-Value"
+                    },
+                    "body": "Authorization failed"
+                }
             
+
     return response
 
 def get_secrets(secret_name):
