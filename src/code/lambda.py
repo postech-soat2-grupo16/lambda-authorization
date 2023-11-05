@@ -45,7 +45,7 @@ def token_validation(token):
         key = secret['secret_key']
         decoded = jwt.decode(token, key, algorithms="HS256")
         print("token decoded", decoded)
-        return true
+        return True
     except Exception as e:
         print("Error! ", e)
         sys.exit(1)
