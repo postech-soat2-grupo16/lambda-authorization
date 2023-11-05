@@ -7,16 +7,16 @@ import sys
 
 def main(event, context):
     response = {
+        "isAuthorized": False,
+        "context": {
+            "customKey": "customValue"
+        },
         "statusCode": 403,
         "headers": {
-            "Content-Type": "application/json"
+            "Custom-Header": "Header-Value"
         },
-        "body": json.dumps({
-            "isAuthorized": False,
-            "context": {
-                "exampleKey": "exampleValue"
-            }
-        })
+        "usageIdentifierKey": "usage-key",
+        "body": "Authorization failed"
     }
     if 'headers' in event:
         print('event:: ', event)
@@ -26,17 +26,18 @@ def main(event, context):
             is_token_ok = token_validation(token)
             print('is token ok: ', is_token_ok)
             response = {
+                "isAuthorized": True,
+                "context": {
+                    "customKey": "customValue"
+                },
                 "statusCode": 200,
                 "headers": {
-                    "Content-Type": "application/json"
+                    "Custom-Header": "Header-Value"
                 },
-                "body": json.dumps({
-                    "isAuthorized": is_token_ok,
-                    "context": {
-                        "exampleKey": "exampleValue"
-                    }
-                })
+                "usageIdentifierKey": "usage-key",
+                "body": "Authorization successful"
             }
+            
     return response
 
 def get_secrets(secret_name):
