@@ -43,7 +43,7 @@ def token_validation(token):
     try:
         secret = get_secrets(os.environ['SECRET_KEY_AUTH'])
         key = secret['secret_key']
-        decoded = jwt.decode(encoded, key, algorithms="HS256")
+        decoded = jwt.decode(token, key, algorithms="HS256")
         print("token decoded", decoded)
         return true
     except Exception as e:
