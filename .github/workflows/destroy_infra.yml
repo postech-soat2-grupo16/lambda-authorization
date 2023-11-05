@@ -1,4 +1,4 @@
-name: Destroy Lambda Authorization Infra
+name: Destroy Lambda Authorization
 
 on:
   workflow_dispatch:
