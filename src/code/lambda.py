@@ -2,6 +2,7 @@ import json
 import os
 import jwt
 import boto3
+import datetime
 
 def main(event, context):
     response = {
@@ -13,15 +14,24 @@ def main(event, context):
             "message": "Unauthorized: Missing or invalid authentication credentials."
         })
     }
-    if 'body' in event:
-        request_body = json.loads(event['body'])
+    if 'headers' in event:
+        request_body = event['body']
         if 'token' in request_body:
             cpf = request_body['token']
             is_token_ok = token_validation(cpf)
             response = {
                 "statusCode": 200,
-                "body": is_token_ok
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": json.dumps({
+                    "isAuthorized": is_token_ok,
+                    "context": {
+                        "exampleKey": "exampleValue"
+                    }
+                })
             }
+}
     return response
 
 def get_secrets(secret_name):
@@ -45,7 +55,11 @@ def token_validation(token):
         key = secret['secret_key']
         decoded = jwt.decode(token, key, algorithms="HS256")
         print("token decoded", decoded)
-        return True
+
+        exp_claim = decode.get('exp') 
+        current_time = datetime.datetime.utcnow()
+
+        return current_time < datetime.datetime.fromtimestamp(exp_claim)
     except Exception as e:
         print("Error! ", e)
         sys.exit(1)
