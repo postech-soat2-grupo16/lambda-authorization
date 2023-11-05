@@ -15,6 +15,7 @@ def main(event, context):
         })
     }
     if 'headers' in event:
+        print('event:: ', event)
         token = event['headers'].get('X-Token')
         print('token: ', token)
         if token:
