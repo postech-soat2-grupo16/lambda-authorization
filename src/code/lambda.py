@@ -24,6 +24,7 @@ def main(event, context):
         print('token: ', token)
         if token:
             is_token_ok = token_validation(token)
+            print('is token ok: ', is_token_ok)
             response = {
                 "statusCode": 200,
                 "headers": {
