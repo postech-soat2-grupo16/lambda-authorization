@@ -18,16 +18,10 @@ def main(event, context):
         if 'token' in request_body:
             cpf = request_body['token']
             is_token_ok = token_validation(cpf)
-            if is_token_ok:
-                response = {
-                    "statusCode": 200,
-                    "headers": {
-                        "Content-Type": "application/json"
-                    },
-                    "body": json.dumps({
-                        "token": "OK"
-                    }) 
-                }
+            response = {
+                "statusCode": 200,
+                "body": is_token_ok
+            }
     return response
 
 def get_secrets(secret_name):
