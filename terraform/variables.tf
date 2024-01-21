@@ -5,26 +5,28 @@ variable "aws_region" {
 
 variable "lambda_execution_role" {
   description = "Execution Role Lambda"
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "vpc_id" {
+  type    = string
+  default = ""
 }
 
 variable "subnet_a" {
-  type = string
-  default = "value"
+  type    = string
+  default = ""
 }
 
 variable "subnet_b" {
-  type = string
-  default = "value"
-}
-
-variable "security_group_lambda" {
-  type = string
-  default = "value"
+  type    = string
+  default = ""
 }
 
 variable "secret_name_auth" {
-  type = string
+  type      = string
   sensitive = true
+  default   = ""
 }
